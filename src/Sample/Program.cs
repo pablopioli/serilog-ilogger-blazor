@@ -2,12 +2,13 @@
 using Serilog;
 using Serilog.Core;
 using Serilog.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Sample
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var levelSwitch = new LoggingLevelSwitch();
             Log.Logger = new LoggerConfiguration()
@@ -15,12 +16,13 @@ namespace Sample
                 .WriteTo.BrowserConsole()
                 .CreateLogger();
 
-            CreateHostBuilder(args).Build().Run();
-        }
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
-            BlazorWebAssemblyHost.CreateDefaultBuilder()
-                .UseBlazorStartup<Startup>()
-                .UseSerilog();
+            builder.UseSerilog();
+
+            builder.RootComponents.Add<App>("app");
+
+            await builder.Build().RunAsync();
+        }
     }
 }
