@@ -31,7 +31,7 @@ See the included sample project for a complete example.
 
 ### Instructions (Blazor 3.2)
 
-* Add the package **BlazorILogger** from nuget (1.1.0-preview3.2.0)
+* Add the package **BlazorILogger** from nuget. Use 1.1.0-preview3.2.0 for Blazor 3.2 Preview 1, use  1.2.0-3.2.0preview2 for Blazor 3.2 Preview 2.
 
 * Add the package **Microsoft.Extensions.Logging.Abstractions** from Nuget
 * Configure Serilog as usual
