@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Core;
 using Serilog.Extensions.Logging;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Sample
@@ -18,9 +20,12 @@ namespace Sample
                 .CreateLogger();
 
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.Services.AddBaseAddressHttpClient();
+            builder.Services.AddSingleton(new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
 
-            builder.UseSerilog();
+            builder.Logging.AddSerilog();
 
             builder.RootComponents.Add<App>("app");
 

@@ -7,7 +7,7 @@ namespace Serilog.Extensions.Logging
 {
     public static class Extensions
     {
-        public static WebAssemblyHostBuilder UseSerilog(this WebAssemblyHostBuilder builder)
+        public static ILoggingBuilder AddSerilog(this ILoggingBuilder builder)
         {
             var serviceCollection = builder.Services;
 

@@ -53,3 +53,34 @@ See the included sample project for a complete example.
 * And that's all, now you can use **ILogger<>** in any Blazor component to send your logs to any configured Serilog sink.
 
 See the included sample project for a complete example.
+
+
+### Instructions (Blazor 3.2 Preview 4)
+
+* Add the package **BlazorILogger** from nuget. Use 1.3.0-3.2.0preview4 for Blazor 3.2 Preview 4.
+
+* Add the package **Microsoft.Extensions.Logging.Abstractions** from Nuget
+* Configure Serilog as usual
+* In program.cs add 
+```csharp
+   using Serilog.Extensions.Logging;
+```
+* Add UseSerilog in your Main method, as in
+```csharp
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            
+builder.Services.AddSingleton(new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
+
+builder.Logging.AddSerilog(); // you need to add this
+
+builder.RootComponents.Add<App>("app");
+
+await builder.Build().RunAsync();
+```
+
+* And that's all, now you can use **ILogger<>** in any Blazor component to send your logs to any configured Serilog sink.
+
+See the included sample project for a complete example.
